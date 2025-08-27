@@ -8,6 +8,9 @@
 #include <vector>
 #include <string>
 
+#ifndef PING-PROJECT_INCLUDE_ICMP_MESSAGE_H
+#define PING-PROJECT_INCLUDE_ICMP_MESSAGE_H
+
 /**
  * @file 
  * @brief Icmp class

@@ -87,4 +87,29 @@ class IcmpMessage
     uint16_t id_;       ///< Packet identifier.
     uint16_t seq_;      ///< Packet sequence number.
     std::vector<uint8_t> data_;     ///<Message data
+};
+
+#endif
+
+/*
+@startuml
+
+class IcmpMessage
+{
+    +Encode(): vector<unint8_t>
+    +Decode(vector<uint8_t> buffer): bool
+    +type() const: uint8_t
+    +set_type(uint8_t): void
+    +code() const: uint8_t
+    +set_code(uint8_t): void
+    +data() const: uint8_t
+    +set_data(uint16_t): void
+    
+    -type_: uint8_t
+    -code_: uint8_t
+    -data_: uint16_t
+    -checksum_: uint16_t
 }
+
+@enduml
+*/

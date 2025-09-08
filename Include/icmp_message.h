@@ -1,25 +1,38 @@
 /**
  * @file 
- * @brief IcmpMessage class definition
+ * @brief client class definition
  */
 
-#include <stdint.h>
-
-#include <vector>
 #include <string>
 
-#ifndef PING-PROJECT_INCLUDE_ICMP_MESSAGE_H
-#define PING-PROJECT_INCLUDE_ICMP_MESSAGE_H
+#include "icmp_message.h"
+
+#ifndef PING_PROJECT_INCLUDE_CLIENT_H
+#define PING_PROJECT_INCLUDE_CLIENT_H
 
 /**
  * @file 
- * @brief Icmp class
+ * @brief client class
  */
-class IcmpMessage
+class Client {
+   public:
+    Client(std::shared_ptr<Socket> socket = nullptr)
+    bool Ping(std::string ip="127.0.0.1", size_t pkt_counter=1){
+
+        buffer_send = msg.Encode()
+        socket_->Send(buffer_send)
+
+        buffer_recv = socket_->Recv();
+        msg.Decode(buffer_recv)
+
+        return true;
+    }
+}
+ class client
 {
     public:
     /**
-     * \brief Encode parameter 
+     * \brief Encode parameter
      * \return The message
      */
     virtual std:vector<unint8_t> Encode();
@@ -32,57 +45,20 @@ class IcmpMessage
     virtual bool Decode(std::vector<uint8_t> buffer);
 
     /**
-     * \brief Get message type
-     * \return The message type
+     * \brief Get message identifier
+     * \return The message identifier
      */
-    inline unit8_t type() const
+    inline unit16_t identifier() const
     {
-        return type_;
+        return identifier_;
     }
+
     /**
-     * \brief Set message type
-     * \param type The expected message type
+     * \brief Set message identifier
+     * \return The message identifier
      */
-    inline void set_type(unit8_t type)
-    {
-       type_ = type;
-    }
-    /**
-     * \brief Get message code
-     * \return The message code
-     */
-    inline unit8_t code() const
-    {
-        return code_;
-    }
     
-    /**
-     * \brief Set message code
-     * \param type The expected message code
-     */
-    inline void set_code(unit8_t code)
-    {
-       code_ = code;
-    }
-
-    /**
-     * \brief Get message data
-     * \return The message data
-     */
-    inline unit16_t data() const
-    {
-        return data_;
-    }
-
-    /**
-     * \brief Set message data
-     * \param data The expected message data
-     */
-    inline void set_data(unit16_t data)
-    {
-       data_ = data;
-    }
-
+    
     private:
     uint8_t type_;      ///< Message type.
     uint8_t code_;      ///< Message code.

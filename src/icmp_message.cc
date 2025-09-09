@@ -5,14 +5,14 @@
 
 #include "icmp_message.h"
 
-bool IcmpMessage::decode(const std::vector<uint8_t> buffer)
-{
-    return false;
-}
-
 std::vector<uint8_t> IcmpMessage::encode()
 {
     return std::vector<uint8_t>();
+}
+
+bool IcmpMessage::decode(const std::vector<uint8_t> &buffer)
+{
+    return false;
 }
 
 uint16_t IcmpMessage::createchecksum(const std::vector<uint8_t> &buffer)
@@ -39,7 +39,7 @@ uint16_t IcmpMessage::createchecksum(const std::vector<uint8_t> &buffer)
     return checksum_;
 }
 
-bool IcmpMessage::verifyCheckSum(const std::vector<uint8_t>& buffer)
+bool IcmpMessage::verifychecksum(const std::vector<uint8_t>& buffer)
 {
-    return createCheckSum(buffer) == 0 ? true : false;
+    return createchecksum(buffer) == 0 ? true : false;
 }

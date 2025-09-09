@@ -25,7 +25,7 @@ class IcmpMessageTest : public ::testing::Test
     
 TEST_F(IcmpMessageTest, ChecksumAllZeros)
 {
-    std::vector<uint8_t> zero_message(8, 0); // 8 bytes all zero
+    std::vector<uint8_t> zero_message(8, 0);
     uint16_t checksum = expect_icmp.createchecksum(zero_message);
     zero_message.at(2) = (checksum >> 8) & 0xFF;
     zero_message.at(3) = checksum & 0xFF;

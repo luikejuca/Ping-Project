@@ -34,11 +34,10 @@ TEST_F(IcmpMessageTest, ChecksumAllZeros)
 
 TEST_F(IcmpMessageTest, ChecksumDetectsCorruption)
 {
-    std::vector<uint8_t> msg = message_; // Copy original message
+    std::vector<uint8_t> msg = message_;
     uint16_t checksum = expect_icmp.createchecksum(msg);
     msg.at(2) = (checksum >> 8) & 0xFF;
     msg.at(3) = checksum & 0xFF;
-    // Corrupt the message
-    msg.at(0) = 8; // Change type
+    msg.at(0) = 8;
     EXPECT_FALSE(expect_icmp.verifychecksum(msg));
 }

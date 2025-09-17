@@ -8,9 +8,7 @@ class IcmpMessageTest : public ::testing::Test
         void SetUp() override 
         {
         }
-    
     private:
-        IcmpMessageTest expect_icmp_;
         std::vector<uint8_t> message_ = {5,//type
                                          0,//code
                                          0,//firts byte checksum
@@ -23,21 +21,23 @@ class IcmpMessageTest : public ::testing::Test
 
     };
     
-TEST_F(IcmpMessageTest, ChecksumAllZeros)
+TEST(IcmpMessageTest, ChecksumAllZeros)
 {
-    std::vector<uint8_t> zero_message(8, 0); 
+    IcmpMessage expect_icmp_;
+    std::vector<uint8_t> zero_message(8, 0);
     uint16_t checksum = expect_icmp_.createchecksum(zero_message);
     zero_message.at(2) = (checksum >> 8) & 0xFF;
     zero_message.at(3) = checksum & 0xFF;
-    EXPECT_TRUE(expect_icmp.verifychecksum(zero_message));
+    EXPECT_TRUE(expect_icmp_.verifychecksum(zero_message));
 }
 // Test for detecting corrupted message
-TEST_F(IcmpMessageTest, ChecksumDetectsCorruption)
+TEST(IcmpMessageTest, ChecksumDetectsCorruption)
 {
-    std::vector<uint8_t> msg = message_;
-    uint16_t checksum = expect_icmp_.createchecksum(msg);
-    msg.at(2) = (checksum >> 8) & 0xFF;
-    msg.at(3) = checksum & 0xFF;
-    msg.at(0) = 8; 
-    EXPECT_FALSE(expect_icmp_.verifychecksum(msg));
+    IcmpMessage expect_icmp_;
+    std::vector<uint8_t> message_;
+    uint16_t checksum = expect_icmp_.createchecksum(message_);
+    message_.at(2) = (checksum >> 8) & 0xFF;
+    message_.at(3) = checksum & 0xFF;
+    message_.at(0) = 8; 
+    EXPECT_FALSE(expect_icmp_.verifychecksum(message_));
 }
